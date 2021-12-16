@@ -1,0 +1,7 @@
+pyfunctional
+numpy
+torch
+tensorboardx
+tensorboard
+gym
+pyyaml

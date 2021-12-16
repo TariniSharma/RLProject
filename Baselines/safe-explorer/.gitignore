@@ -1,0 +1,13 @@
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VSCode specific
+.vscode
+.history
+
+# Project specific
+runs/
+
+run_tests.sh

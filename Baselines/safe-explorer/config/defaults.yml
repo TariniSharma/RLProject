@@ -1,0 +1,121 @@
+name: "Safe Explorer"
+help: 'Pytorch implementation of "Safe Exploration in Continuous Action Spaces".'
+arguments:
+  - name: "env"
+    help: "Configuration related to simulation environments."
+    properties:
+      - name: "spaceship"
+        help: "Spaceship environment configuration."
+        properties:
+          - name: "arena"
+            default: false
+          - name: "agent_slack"
+            default: 0.05
+          - name: "episode_length"
+            default: 15
+          - name: "episode_length_arena"
+            default: 45
+          - name: "time_step"
+            default: 0.1
+          - name: "target_diameter"
+            default: 0.05 # 0.025
+          - name: "enable_reward_shaping"
+            default: false
+          - name: "reward_shaping_margin"
+            default: 0.17     
+      - name: "ballnd"
+        help: "Ball-ND environment configuration."
+        properties:
+          - name: "n"
+            default: 1
+          - name: "target_margin"
+            default: 0.2
+          - name: "agent_slack"
+            default: 0.1
+          - name: "episode_length"
+            default: 30
+          - name: "time_step"
+            default: 0.1
+          - name: "respawn_interval"
+            default: 2
+          - name: "target_noise_std"
+            default: 0.05
+          - name: "enable_reward_shaping"
+            default: false
+          - name: "reward_shaping_margin"
+            default: 0.14  
+          - name: "control_acceleration"
+            default: false     
+  - name: "ddpg"
+    help: "Hyperparameters for DDPG algorithm."
+    properties:
+      - name: "trainer"
+        help: "DDPG training parameters"
+        properties:
+          - name: "epochs"
+            default: 300
+          - name: "training_episodes_per_epoch"
+            default: 1
+          - name: "evaluation_episodes_per_epoch"
+            default: 1
+          - name: "batch_size"
+            default: 256
+          - name: "memory_buffer_size"
+            default: 1000000
+          - name: "gamma"
+            default: 0.99
+          - name: "tau"
+            default: 0.001 
+          - name: "reward_scale"
+            default: 1.0
+          - name: "actor_layers"
+            default: [64,64] # [100, 100]
+          - name: "critic_layers"
+            default: [256,256] # [500, 500]
+          - name: "actor_lr"
+            default: 0.0001
+          - name: "critic_lr"
+            default: 0.001
+          - name: "actor_weight_decay"
+            default: 0.0
+          - name: "critic_weight_decay"
+            default: 0.01
+  - name: "safety_layer"
+    help: "Safety layer configuration."
+    properties:
+      - name: "constraint_model"
+        help: "Hyperparameters for constraint model (g)"
+        properties:
+          - name: "layers"
+            default: [10]
+      - name: "trainer"
+        help: "Constraint model training parameters"
+        properties:
+          - name: "epochs"
+            default: 10
+          - name: "training_steps_per_epoch"
+            default: 1000
+          - name: "evaluation_steps_per_epoch"
+            default: 20
+          - name: "sample_data_episodes"
+            default: 1000
+          - name: "batch_size"
+            default: 256
+          - name: "memory_buffer_size"
+            default: 1000000
+          - name: "lr"
+            default: 0.001
+          - name: "correction_scale"
+            default: 5.0
+  - name: "main"
+    help: "Safe-Explorer driver properties."
+    properties:
+      - name: "trainer"
+        help: "Training configuration."
+        properties:
+          - name: "seed"
+            default: 0
+          - name: "task"
+            default: "ballnd" # spaceship; ballnd
+          - name: "use_safety_layer"
+            default: false
