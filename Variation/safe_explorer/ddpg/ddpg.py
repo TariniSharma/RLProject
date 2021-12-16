@@ -164,7 +164,7 @@ class DDPG:
         self._critic2_optimizer.step()
 
 
-        if True:
+        if self._j % self._policyDelay == 0:
             # Update actor
             self._actor_optimizer.zero_grad()
             # Find loss with updated critic
